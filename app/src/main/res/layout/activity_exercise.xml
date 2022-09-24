@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ExerciseActivity"
+    android:keepScreenOn="true"
     android:background="@drawable/dark_black_bg">
 
     <androidx.appcompat.widget.Toolbar
@@ -38,24 +39,6 @@
         android:text="@string/get_ready"
         android:textColor="@color/white"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@id/tv_exerciseName"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="@dimen/primary_padding"/>
-
-    <TextView
-        android:id="@+id/tv_exerciseName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_size"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:background="@drawable/exercise_name_bg"
-        android:text=""
-        android:textColor="@color/white"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/frame_layout"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginBottom="@dimen/primary_padding"/>

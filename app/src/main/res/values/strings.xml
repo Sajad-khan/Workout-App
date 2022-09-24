@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Let\'s Workout</string>
     <string name="start">START</string>
-    <string name="get_ready">Get ready for</string>
+    <string name="get_ready">Get ready for %s!</string>
     <string name="ten">10</string>
     <string name="thirty">30</string>
     <string name="change_exercise">%s</string>

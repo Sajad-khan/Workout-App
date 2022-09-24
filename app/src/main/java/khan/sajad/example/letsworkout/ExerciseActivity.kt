@@ -24,12 +24,13 @@ class ExerciseActivity : AppCompatActivity() {
         binding.exerciseToolbar.setNavigationOnClickListener {
             position = 0
             onBackPressed()
+            finish()
         }
         startTimer()
     }
 
     private fun startTimer(){
-        binding.tvExerciseName.text = exerciseList[position].name
+        binding.tvTitle.text = getString(R.string.get_ready, exerciseList[position].name)
         object : CountDownTimer(10000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 binding.tvTimer.text = (millisUntilFinished / 1000).toString()
@@ -73,7 +74,6 @@ class ExerciseActivity : AppCompatActivity() {
     private fun setExerciseVisibility(){
         binding.frameLayout.visibility = View.GONE
         binding.tvTitle.visibility = View.GONE
-        binding.tvExerciseName.visibility = View.GONE
         binding.frameLayout30.visibility = View.VISIBLE
         binding.tvTitle30.visibility = View.VISIBLE
         binding.ImageView30.visibility = View.VISIBLE
@@ -85,7 +85,6 @@ class ExerciseActivity : AppCompatActivity() {
         binding.ImageView30.visibility = View.GONE
         binding.frameLayout.visibility = View.VISIBLE
         binding.tvTitle.visibility = View.VISIBLE
-        binding.tvExerciseName.visibility = View.VISIBLE
     }
     private fun setResultActivity(){
         val intent = Intent(this, ResultActivity::class.java)

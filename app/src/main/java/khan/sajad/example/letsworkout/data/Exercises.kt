@@ -10,7 +10,7 @@ class Exercises {
             Exercise("Jumping Jacks", R.drawable.jumping_jacks, false),
             Exercise("Side Squats", R.drawable.side_to_side_squats, false),
             Exercise("Spiderman Plank", R.drawable.spiderman_plank, false),
-            Exercise("Jumping Squats", R.drawable.jump_squat, false),
+            Exercise("Jump Squats", R.drawable.jump_squat, false),
             Exercise("Reverse Crunches", R.drawable.reverse_crunches, false)
         )
     }
