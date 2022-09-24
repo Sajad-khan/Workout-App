@@ -1,12 +1,10 @@
 package khan.sajad.example.letsworkout
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
-import android.widget.ImageView
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import khan.sajad.example.letsworkout.data.Exercises
 import khan.sajad.example.letsworkout.databinding.ActivityExerciseBinding
@@ -22,7 +20,7 @@ class ExerciseActivity : AppCompatActivity() {
         setSupportActionBar(binding.exerciseToolbar)
         // enables back button on toolbar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        // clicklistener to the back button on the toolbar
+        // click-listener to the back button on the toolbar
         binding.exerciseToolbar.setNavigationOnClickListener {
             position = 0
             onBackPressed()
@@ -31,8 +29,8 @@ class ExerciseActivity : AppCompatActivity() {
     }
 
     private fun startTimer(){
+        binding.tvExerciseName.text = exerciseList[position].name
         object : CountDownTimer(10000, 1000) {
-
             override fun onTick(millisUntilFinished: Long) {
                 binding.tvTimer.text = (millisUntilFinished / 1000).toString()
                 binding.progressBar.progress = ((millisUntilFinished)/1000).toInt()
@@ -75,6 +73,7 @@ class ExerciseActivity : AppCompatActivity() {
     private fun setExerciseVisibility(){
         binding.frameLayout.visibility = View.GONE
         binding.tvTitle.visibility = View.GONE
+        binding.tvExerciseName.visibility = View.GONE
         binding.frameLayout30.visibility = View.VISIBLE
         binding.tvTitle30.visibility = View.VISIBLE
         binding.ImageView30.visibility = View.VISIBLE
@@ -86,6 +85,7 @@ class ExerciseActivity : AppCompatActivity() {
         binding.ImageView30.visibility = View.GONE
         binding.frameLayout.visibility = View.VISIBLE
         binding.tvTitle.visibility = View.VISIBLE
+        binding.tvExerciseName.visibility = View.VISIBLE
     }
     private fun setResultActivity(){
         val intent = Intent(this, ResultActivity::class.java)
