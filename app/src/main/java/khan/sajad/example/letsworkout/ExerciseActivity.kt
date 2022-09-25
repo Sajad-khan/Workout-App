@@ -16,7 +16,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var binding: ActivityExerciseBinding
     private var position = 0
     private var exerciseList = Exercises().loadExercises()
-
+    private lateinit var timer: CountDownTimer
     // Text To speech variable
     private lateinit var textToSpeech: TextToSpeech
 
@@ -32,7 +32,6 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         binding.exerciseToolbar.setNavigationOnClickListener {
             position = 0
             onBackPressed()
-            finish()
         }
         // start textToSpeech
         textToSpeech = TextToSpeech(this, this)
@@ -44,7 +43,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         // Speak out
         textToSpeech.speak(binding.tvTitle.text, TextToSpeech.QUEUE_FLUSH, null, "")
 
-        object : CountDownTimer(10000, 1000) {
+        timer = object : CountDownTimer(10000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 binding.tvTimer.text = (millisUntilFinished / 1000).toString()
                 binding.progressBar.progress = ((millisUntilFinished)/1000).toInt()
@@ -64,7 +63,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             showGif(exercise.image)
             textToSpeech.speak(binding.tvTitle30.text, TextToSpeech.QUEUE_FLUSH, null, "")
             Log.e("SPEAK", "Unable to speak!")
-            object : CountDownTimer(30000, 1000) {
+            timer = object : CountDownTimer(30000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 binding.tvTimer30.text = (millisUntilFinished / 1000).toString()
                 binding.progressBar30.progress = ((millisUntilFinished)/1000).toInt()
@@ -126,5 +125,16 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         super.onDestroy()
         textToSpeech.stop()
         textToSpeech.shutdown()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+//        val intent = Intent(this, MainActivity::class.java)
+//        startActivity(intent)
+//        finish()
+        textToSpeech.stop()
+        textToSpeech.shutdown()
+        timer.cancel()
+        position = 0
     }
 }
