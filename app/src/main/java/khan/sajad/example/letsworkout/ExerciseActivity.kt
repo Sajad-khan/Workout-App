@@ -25,7 +25,6 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         binding = ActivityExerciseBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        textToSpeech = TextToSpeech(this, this)
         setSupportActionBar(binding.exerciseToolbar)
         // enables back button on toolbar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -35,7 +34,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             onBackPressed()
             finish()
         }
-
+        // start textToSpeech
+        textToSpeech = TextToSpeech(this, this)
         startTimer()
     }
 
