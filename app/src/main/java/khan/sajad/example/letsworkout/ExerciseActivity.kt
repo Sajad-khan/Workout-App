@@ -36,7 +36,6 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
         // start textToSpeech
         textToSpeech = TextToSpeech(this, this)
-        startTimer()
     }
 
     private fun startTimer(){
@@ -64,7 +63,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             binding.tvTitle30.text = exercise.name
             showGif(exercise.image)
             textToSpeech.speak(binding.tvTitle30.text, TextToSpeech.QUEUE_FLUSH, null, "")
-
+            Log.e("SPEAK", "Unable to speak!")
             object : CountDownTimer(30000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 binding.tvTimer30.text = (millisUntilFinished / 1000).toString()
@@ -116,10 +115,16 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             if(langSet == TextToSpeech.LANG_MISSING_DATA || langSet == TextToSpeech.LANG_NOT_SUPPORTED){
                 Log.e("TTS", "Unable set the language!")
             }
+            else startTimer()
         }
         else{
             Log.e("TTS", "Failed to start Text to speech")
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        textToSpeech.stop()
+        textToSpeech.shutdown()
+    }
 }
