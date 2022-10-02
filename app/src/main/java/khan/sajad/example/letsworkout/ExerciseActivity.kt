@@ -1,5 +1,6 @@
 package khan.sajad.example.letsworkout
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import khan.sajad.example.letsworkout.data.Exercises
 import khan.sajad.example.letsworkout.databinding.ActivityExerciseBinding
+import khan.sajad.example.letsworkout.databinding.QuitDialogBinding
 import java.util.*
 
 class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
@@ -60,6 +62,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private fun startTimer30(){
             val exercise = exerciseList[position]
             binding.tvTitle30.text = exercise.name
+            binding.exerciseProgressbar.progress = position+1
+            binding.tvExerciseProgress.text = getString(R.string.progress, position+1, exerciseList.size)
             showGif(exercise.image)
             textToSpeech.speak(binding.tvTitle30.text, TextToSpeech.QUEUE_FLUSH, null, "")
             Log.e("SPEAK", "Unable to speak!")
@@ -70,6 +74,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             }
 
             override fun onFinish() {
+                exercise.selected = false
                 position++
                 if(position != exerciseList.size){
                     setBreakVisibility()
@@ -86,6 +91,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         Glide.with(this).load(id).into(binding.ImageView30)
     }
     private fun setExerciseVisibility(){
+        binding.progressBarLayout.visibility = View.VISIBLE
         binding.frameLayout.visibility = View.GONE
         binding.tvTitle.visibility = View.GONE
         binding.frameLayout30.visibility = View.VISIBLE
@@ -94,6 +100,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun setBreakVisibility(){
+        binding.progressBarLayout.visibility = View.GONE
         binding.frameLayout30.visibility = View.GONE
         binding.tvTitle30.visibility = View.GONE
         binding.ImageView30.visibility = View.GONE
@@ -121,6 +128,26 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
     }
 
+    private fun onBackButtonPressedCustomDialog(){
+        val customDialog = Dialog(this)
+        val dialogBinding = QuitDialogBinding.inflate(layoutInflater)
+        customDialog.setContentView(dialogBinding.root)
+        customDialog.setCanceledOnTouchOutside(false)
+        if(position < exerciseList.size/2) dialogBinding.tvBackDes.text = getString(R.string.quit_early)
+        else dialogBinding.tvBackDes.text = getString(R.string.quit_later)
+
+        dialogBinding.btnYes.setOnClickListener {
+            textToSpeech.stop()
+            textToSpeech.shutdown()
+            timer.cancel()
+            position = 0
+            super.onBackPressed()
+            customDialog.dismiss()
+        }
+        dialogBinding.btnNo.setOnClickListener { customDialog.dismiss() }
+
+        customDialog.show()
+    }
     override fun onDestroy() {
         super.onDestroy()
         textToSpeech.stop()
@@ -128,13 +155,6 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-//        val intent = Intent(this, MainActivity::class.java)
-//        startActivity(intent)
-//        finish()
-        textToSpeech.stop()
-        textToSpeech.shutdown()
-        timer.cancel()
-        position = 0
+        onBackButtonPressedCustomDialog()
     }
 }

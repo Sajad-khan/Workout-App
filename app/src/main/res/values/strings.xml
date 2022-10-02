@@ -10,4 +10,25 @@
     <string name="restart">Restart</string>
     <string name="you_ve_successfully_completed_all_the_exercises">You\'ve completed all the exercises.</string>
     <string name="congratulations">Congratulations!</string>
+    <string name="progress">%d/%d</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="quit_later">You\'ve come this far, do you really want to quit?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="quit_early">You\'ve just started the exercise, do you really want to quit this early?</string>
+    <string name="bmi">BMI</string>
+    <string name="bmi_value_string">BMI : %s</string>
+    <string name="calculator">Calculator</string>
+    <string name="weight_in_kg">Weight (in kg)</string>
+    <string name="height_in_cm">Height (in cm)</string>
+    <string name="bmi_tv">BMI</string>
+    <string name="overweight">Oops! You seem to be overweight. You have to keep a track of your diet and workout.</string>
+    <string name="normal">Yay! You have a healthy weight. Still try to be the best version of yourself.</string>
+    <string name="underweight">Oops! You seem to be underweight. Work on your diet and health.</string>
+    <string name="calculate">Calculate</string>
+    <string name="metric_units">METRIC UNITS</string>
+    <string name="us_units">US UNITS</string>
+    <string name="feet">feet</string>
+    <string name="inches">inches</string>
+    <string name="image_description">image</string>
 </resources>

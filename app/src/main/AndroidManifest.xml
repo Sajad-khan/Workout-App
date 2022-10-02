@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <queries>
         <intent>
-            <action android:name="android.intent.action.TTS"/>
+            <action android:name="android.intent.action.TTS" />
         </intent>
     </queries>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -16,6 +18,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LetsWorkout"
         tools:targetApi="31">
+        <activity
+            android:name=".BmiActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".ResultActivity"
             android:exported="false">
