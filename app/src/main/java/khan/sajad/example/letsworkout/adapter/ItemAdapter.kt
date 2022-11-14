@@ -1,29 +1,40 @@
 package khan.sajad.example.letsworkout.adapter
 
-import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import khan.sajad.example.letsworkout.R
-import khan.sajad.example.letsworkout.model.Exercise
+import khan.sajad.example.letsworkout.databinding.ItemHistoryRowBinding
 
-class ItemAdapter(val context: Context,
-                  private val dataset: ArrayList<Exercise>): RecyclerView.Adapter<ItemAdapter.ItemViewHolder>()  {
+class ItemAdapter(private val dataset: ArrayList<String>): RecyclerView.Adapter<ItemAdapter.ItemViewHolder>()  {
 
-    class ItemViewHolder(private val view: View): RecyclerView.ViewHolder(view){
-        val exerciseNoTextView: TextView = view.findViewById(R.id.tv_exerciseNo)
+    class ItemViewHolder(binding: ItemHistoryRowBinding) : RecyclerView.ViewHolder(binding.root) {
+        // Holds the TextView that will add each item to
+        val llHistoryItemMain = binding.llHistoryItemMain
+        val tvItem = binding.tvItem
+        val tvPosition = binding.tvPosition
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder{
-        return ItemViewHolder(LayoutInflater.from(parent.context)
-            .inflate(R.layout.recyclerview_item, parent, false))
+        return ItemViewHolder(ItemHistoryRowBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val item = dataset[position]
-        holder.exerciseNoTextView.text = item.exerciseNo.toString()
+        val date: String = dataset[position]
+
+        holder.tvPosition.text = (position + 1).toString()
+        holder.tvItem.text = date
+
+        // Updating the background color according to the odd/even positions in list.
+        if (position % 2 == 0) {
+            holder.llHistoryItemMain.setBackgroundColor(
+                Color.parseColor("#EBEBEB")
+            )
+        } else {
+            holder.llHistoryItemMain.setBackgroundColor(
+                Color.parseColor("#FFFFFF")
+            )
+        }
     }
     override fun getItemCount(): Int {
         return dataset.size
